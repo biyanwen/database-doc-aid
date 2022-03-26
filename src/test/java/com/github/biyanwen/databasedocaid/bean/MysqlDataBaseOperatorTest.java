@@ -2,6 +2,7 @@ package com.github.biyanwen.databasedocaid.bean;
 
 import com.github.biyanwen.databasedocaid.api.DataBaseOperator;
 import com.github.biyanwen.databasedocaid.api.TableMapping;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ class MysqlDataBaseOperatorTest {
 		assertFalse(result2);
 	}
 
+	@SneakyThrows
 	@Test
 	void createTableMappings() {
 		DataBaseOperator operator = new MysqlDataBaseOperator();

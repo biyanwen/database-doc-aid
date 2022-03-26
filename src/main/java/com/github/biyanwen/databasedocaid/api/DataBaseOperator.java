@@ -1,5 +1,6 @@
 package com.github.biyanwen.databasedocaid.api;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -32,5 +33,5 @@ public interface DataBaseOperator {
 	 * @param databaseName 数据库名称
 	 * @return {@link List}<{@link TableMapping}>
 	 */
-	List<TableMapping> createTableMappings(String username, String password, String ip, String port, String databaseName);
+	List<TableMapping> createTableMappings(String username, String password, String ip, String port, String databaseName) throws SQLException;
 }

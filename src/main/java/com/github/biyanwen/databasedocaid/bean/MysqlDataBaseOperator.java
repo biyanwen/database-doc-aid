@@ -41,29 +41,10 @@ public class MysqlDataBaseOperator implements DataBaseOperator {
 	}
 
 	@Override
-	public List<TableMapping> createTableMappings(String username, String password, String ip, String port, String databaseName) {
+	public List<TableMapping> createTableMappings(String username, String password, String ip, String port, String databaseName) throws SQLException {
 		try (Connection conn = DriverManager.getConnection(createUrl(ip, port, databaseName), username, password)) {
-			List<TableMessage> tableMessages = getTableNames(conn,databaseName);
+			List<TableMessage> tableMessages = getTableNames(conn, databaseName);
 			return createTableMappings(tableMessages, conn);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return new ArrayList<>();
-	}
-
-
-	/**
-	 * 关闭数据库连接
-	 *
-	 * @param conn
-	 */
-	private void closeConnection(Connection conn) {
-		if (conn != null) {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				LOGGER.error("close connection failure", e);
-			}
 		}
 	}
 
