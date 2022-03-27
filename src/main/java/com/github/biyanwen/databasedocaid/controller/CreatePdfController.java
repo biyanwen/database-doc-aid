@@ -8,10 +8,9 @@ import com.github.biyanwen.databasedocaid.bean.PdfCreator;
 import com.github.biyanwen.databasedocaid.controller.request.DatabaseRequest;
 import com.github.biyanwen.databasedocaid.utils.AesUtil;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +29,9 @@ import java.util.List;
 @Controller
 public class CreatePdfController {
 
+	@Value("${server.port}")
+	private String port;
+
 	@PostMapping("/createPdf")
 	@ResponseBody
 	public void createPdf(@RequestBody DatabaseRequest databaseRequest, HttpServletRequest request, HttpServletResponse response) {
@@ -42,6 +44,8 @@ public class CreatePdfController {
 			DocumentCreator pdfCreator = new PdfCreator();
 			byte[] document = pdfCreator.createDocument(tableMappingList);
 			response.setHeader("Access-Control-Expose-Headers", "content-disposition");
+			response.setHeader("Access-Control-Allow-Credentials", "true");
+			response.setHeader("Access-Control-Allow-Origin","http://localhost:" + port);
 			response.setContentType("application/pdf");
 			response.setCharacterEncoding("utf-8");
 			response.setHeader("content-disposition", "attachment;filename*=utf-8" +

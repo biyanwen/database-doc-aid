@@ -35,6 +35,11 @@ public class PdfCreator implements DocumentCreator {
 	public byte[] createDocument(List<TableMapping> tableMappings) {
 		try (ByteArrayOutputStream byteArrayOutput = new ByteArrayOutputStream();) {
 			Document doc = createDocObj(byteArrayOutput);
+			Paragraph title = new Paragraph("点击表名可以进行跳转");
+			title.setMarginLeft(40);
+			title.getAccessibilityProperties().setRole(StandardRoles.H1);
+			title.setMarginTop(10);
+			doc.add(title);
 			Table overviewTable = createCommonTableObj(2);
 			overviewTable.addHeaderCell("表名");
 			overviewTable.addHeaderCell("注释");
